@@ -4,8 +4,8 @@ namespace API.Modelos;
 
 public class BibliotecaDbContext : DbContext
 {
-    public DbSet<Livro> Livros { get; set; }
-    public DbSet<Categoria> Categorias { get; set; }
+    public DbSet<Livro> Livro { get; set; }
+    public DbSet<Categoria> Categoria { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

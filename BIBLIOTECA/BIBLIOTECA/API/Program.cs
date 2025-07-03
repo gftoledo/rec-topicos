@@ -23,7 +23,7 @@ app.MapPost("/api/categorias", ([FromBody] Categoria categoria, [FromServices] B
 });
 
 // PUT /api/categoria/{id}
-app.MapPut("/api/categorias/{id}", ([FromRoute] int id, [FromBody] Status categoriaAlterado, [FromServices] BibliotecaDbContext ctx) =>
+app.MapPut("/api/categorias/{id}", ([FromRoute] int id, [FromBody] Categoria categoriaAlterado, [FromServices] BibliotecaDbContext ctx) =>
 {
     var categoria = ctx.Categoria.Find(id);
     if (categoria == null) return Results.NotFound();
@@ -33,6 +33,28 @@ app.MapPut("/api/categorias/{id}", ([FromRoute] int id, [FromBody] Status catego
     ctx.SaveChanges();
     return Results.Ok(categoria);
 });
+
+
+
+
+// GET /api/livros
+app.MapGet("/api/livros", ([FromServices] BibliotecaDbContext ctx) =>
+{
+    var livros = ctx.Livro.Include(p => p.Categoria).ToList();
+    return livros.Any() ? Results.Ok(livros) : Results.NotFound();
+});
+
+// GET /api/livros/{id}
+app.MapGet("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbContext ctx) =>
+{
+    var livro = ctx.Livro.Find(id);
+    return livro == null ? Results.NotFound() : Results.Ok(livro);
+});
+
+
+
+
+
 
 
 
