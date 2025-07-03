@@ -49,11 +49,12 @@ app.MapGet("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbC
     return livro == null ? Results.NotFound() : Results.Ok(livro);
 
     if (livro == null)
-        return Results.BadRequest("Livro com ID {id} não encontrado.");
+    return Results.BadRequest("Livro com ID {id} não encontrado.");
+
 });
 
 
-//POST/api/livro
+//POST/api/livros
 app.MapPost("/api/livros", ([FromBody] Livro livro, [FromServices] BibliotecaDbContext ctx) =>
 {
     if (string.IsNullOrWhiteSpace(livro.Titulo) || livro.Titulo.Length < 3)

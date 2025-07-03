@@ -1,20 +1,21 @@
-### Lista de Tarefas
-GET http://localhost:5231/livros
+### Lista de Livros
+GET http://localhost:5231/api/livros
 
-### Cadastrar Tarefa
-POST http://localhost:5231/livros
+### Cadastrar Livros
+POST http://localhost:5231/api/livros
 Content-Type: application/json
 
 {
     "titulo" : "livro",
     "autor" : "clarice",
-    "categoriaId" : 1
+    "categoriaId" : 1 
 }
 
-DELETE http://localhost:5231/livros/1
+### Deletar Livros
+DELETE http://localhost:5231/api/livros/1
 
-
-PUT http://localhost:5231/livros/1
+### Alterar Livros
+PUT http://localhost:5231/api/livros/1
 Content-Type: application/json
 
 {

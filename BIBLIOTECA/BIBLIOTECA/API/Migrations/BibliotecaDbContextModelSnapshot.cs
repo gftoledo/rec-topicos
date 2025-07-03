@@ -28,7 +28,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categoria");
 
                     b.HasData(
                         new
@@ -79,7 +79,7 @@ namespace API.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Livros");
+                    b.ToTable("Livro");
                 });
 
             modelBuilder.Entity("Livro", b =>

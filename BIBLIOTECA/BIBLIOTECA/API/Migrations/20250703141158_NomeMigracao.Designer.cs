@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BibliotecaDbContext))]
-    [Migration("20250703120523_NomeMigracao")]
+    [Migration("20250703141158_NomeMigracao")]
     partial class NomeMigracao
     {
         /// <inheritdoc />
@@ -31,7 +31,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categoria");
 
                     b.HasData(
                         new
@@ -82,7 +82,7 @@ namespace API.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Livros");
+                    b.ToTable("Livro");
                 });
 
             modelBuilder.Entity("Livro", b =>
