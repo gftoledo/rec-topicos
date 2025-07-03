@@ -1,0 +1,12 @@
+### Lista de Tarefas
+GET http://localhost:5231/livros
+
+### Cadastrar Tarefa
+POST http://localhost:5231/livros
+Content-Type: application/json
+
+{
+    "titulo" : "livro",
+    "autor" : "clarice",
+    "categoriaId" : 1
+}
