@@ -47,6 +47,9 @@ app.MapGet("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbC
 {
     var livro = ctx.Livro.Find(id);
     return livro == null ? Results.NotFound() : Results.Ok(livro);
+
+    if (livro == null)
+        return Results.BadRequest("Livro com ID {id} não encontrado.");
 });
 
 
