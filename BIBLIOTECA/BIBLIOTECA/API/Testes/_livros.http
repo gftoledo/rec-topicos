@@ -10,3 +10,14 @@ Content-Type: application/json
     "autor" : "clarice",
     "categoriaId" : 1
 }
+
+DELETE http://localhost:5231/livros/1
+
+PUT http://localhost:5231/livros/1
+Content-Type: application/json
+
+{
+    "titulo" : "livro",
+    "autor" : "clarice",
+    "categoriaId" : 1
+}

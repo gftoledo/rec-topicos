@@ -35,8 +35,6 @@ app.MapPut("/api/categorias/{id}", ([FromRoute] int id, [FromBody] Categoria cat
 });
 
 
-
-
 // GET /api/livros
 app.MapGet("/api/livros", ([FromServices] BibliotecaDbContext ctx) =>
 {
@@ -50,9 +48,6 @@ app.MapGet("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbC
     var livro = ctx.Livro.Find(id);
     return livro == null ? Results.NotFound() : Results.Ok(livro);
 });
-
-
-
 
 
 //POST/api/livro
