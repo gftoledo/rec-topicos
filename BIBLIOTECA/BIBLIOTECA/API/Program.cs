@@ -55,12 +55,69 @@ app.MapGet("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbC
 
 
 
+//POST/api/livro
+app.MapPost("/api/livros", ([FromBody] Livro livro, [FromServices] BibliotecaDbContext ctx) =>
+{
+    if (string.IsNullOrWhiteSpace(livro.Titulo) || livro.Titulo.Length < 3)
+        return Results.BadRequest("Título deve ter no mínimo 3 caracteres.");
+
+    if (string.IsNullOrWhiteSpace(livro.Autor) || livro.Autor.Length < 3)
+        return Results.BadRequest("Autor deve ter no mínimo 3 caracteres.");
+
+    var categoria = ctx.Categoria.Find(livro.CategoriaId);
+    if (categoria == null)
+        return Results.BadRequest("Categoria inválida. O ID da categoria fornecido não existe.");
+
+    ctx.Livro.Add(livro);
+    ctx.SaveChanges();
+    return Results.Created($"/api/livros/{livro.Id}", livro);
+});
 
 
+//PUT/api/livros/{id}
+app.MapPut("/api/livros/{id}", ([FromRoute] int id, [FromBody] Livro livroAlterado, [FromServices] BibliotecaDbContext ctx) =>
+{
+    var livro = ctx.Livro.Find(id);
+    if (livro == null)
+        return Results.NotFound(new { erro = "Livro não encontrado." });
 
+    
+    if (string.IsNullOrWhiteSpace(livroAlterado.Titulo) || livroAlterado.Titulo.Length < 3)
+    {
+        return Results.BadRequest(new { erro = "Título deve ter no mínimo 3 caracteres." });
+    }
 
+    if (string.IsNullOrWhiteSpace(livroAlterado.Autor) || livroAlterado.Autor.Length < 3)
+    {
+        return Results.BadRequest(new { erro = "Autor deve ter no mínimo 3 caracteres." });
+    }
 
+    var categoria = ctx.Categoria.Find(livroAlterado.CategoriaId);
+    if (categoria == null)
+    {
+        return Results.BadRequest(new { erro = "Categoria inválida. O ID da categoria fornecido não existe." });
+    }
+    
+    livro.Titulo = livroAlterado.Titulo;
+    livro.Autor = livroAlterado.Autor;
+    livro.Categoria = categoria;
 
+    ctx.Livro.Update(livro);
+    ctx.SaveChanges();
+
+    return Results.Ok(livro);
+});
+
+//DELETE/api/livro/{id}
+app.MapDelete("/api/livros/{id}", ([FromRoute] int id, [FromServices] BibliotecaDbContext ctx) =>
+{
+    var livro = ctx.Livro.Find(id);
+    if (livro == null) return Results.NotFound();
+
+    ctx.Livro.Remove(livro);
+    ctx.SaveChanges();
+    return Results.Ok(livro);
+});
 
 
 app.Run();
